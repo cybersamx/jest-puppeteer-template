@@ -1,0 +1,6 @@
+{
+  "clearMocks": true,
+  "preset": "jest-puppeteer",
+  "roots": ["tests"],
+  "testEnvironment": "node"
+}

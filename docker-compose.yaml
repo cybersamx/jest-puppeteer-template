@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  jest-puppeteer:
+    build:
+      context: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_ADMIN
+    image: cybersamx/jest-puppeteer
