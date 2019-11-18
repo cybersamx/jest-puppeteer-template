@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 
 describe('Google', () => {
-  const timeout = 30 * 100; // timeout in milliseconds
+  const timeout = 30 * 1000; // timeout in milliseconds
 
   const testFunc = async () => {
     const browser = await puppeteer.launch();

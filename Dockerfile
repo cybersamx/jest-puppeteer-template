@@ -29,8 +29,8 @@ USER ${USER}
 WORKDIR /home/${USER}
 
 # Seaparately copy package.json over for caching
-COPY package.json ./
-RUN npm install
+COPY package*.json ./
+RUN npm install --no-optional --production && npm cache clean --force
 
 # Copy the test suite over
 COPY --chown=${USER} . ./
