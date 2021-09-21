@@ -1,4 +1,8 @@
-version: '3'
+version: '3.7'
+
+networks:
+  default:
+    driver: bridge
 
 services:
   jest-puppeteer:
@@ -9,3 +13,5 @@ services:
     cap_add:
       - SYS_ADMIN
     image: cybersamx/jest-puppeteer
+    networks:
+      - default

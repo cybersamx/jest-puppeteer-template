@@ -1,20 +1,28 @@
 # CREDIT: https://github.com/Zenika/alpine-chrome
 # Don't want to use edge package, created this Dockerfile that's based on
 # zenika/alpine-chrome
-FROM alpine:3
+FROM alpine:3.14.2
 
 RUN apk update && apk upgrade
 
 # Install Chromium version >=77 for it to run well with Alpine
-RUN apk add --no-cache \
-    ca-certificates \
-    chromium>79 \
-    freetype-dev \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
+    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && echo "http://dl-cdn.alpinelinux.org/alpine/v3.12/main" >> /etc/apk/repositories \
+    && apk upgrade -U -a \
+    && apk add \
+    libstdc++ \
+    chromium \
+    harfbuzz \
+    nss \
+    freetype \
+    ttf-freefont \
+    font-noto-emoji \
+    wqy-zenhei \
     nodejs \
     nodejs-npm \
-    tini \
-    ttf-freefont \
-    yarn
+    tini
 
 # Don't need Puppeteer to install Chromium
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \

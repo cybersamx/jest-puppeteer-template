@@ -53,6 +53,12 @@ Docker image [jest-puppeteer](https://hub.docker.com/repository/docker/cybersamx
 * By default, Docker container is configured with `/dev/shm` of 64MB of shared memory. This isn't enough for Chromium to run. To run the Docker jest-puppeeter container properly, we pass the `--disable-dev-shm-usage` to direct Chromium to use `/tm` to write shared memory files. [See here for details](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#tips).
 * Given that only Chromium 77+ works on Alpine, we are installing Chromium directly using the Alpine apk package manager as opposed to using the Chromium installation step by Puppeteer. Because of this, be mindful of the recommended version of Chromium needed by a specific version of Puppeteer. [See all corresponding Chromium and Puppeteer versions](https://github.com/GoogleChrome/puppeteer/blob/v2.0.0/docs/api.md).    
 
+## Troubleshooting
+
+**You see `mkdir: can't create directory '/tmp/jest_rs': No space left on device` when running the Docker container.**
+
+This usually means that Docker system has limited space left. Run this command `docker system prune --all --force` to free up some resources.
+
 ## Reference and Credit
 
 * [AirBnB JavaScript style guide](https://github.com/airbnb/javascript)
