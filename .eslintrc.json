@@ -2,20 +2,19 @@
   "extends": ["airbnb-base"],
   "parser": "babel-eslint",
   "parserOptions": {
-    "ecmaVersion": 6,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "impliedStrict": true,
-      "classes": true
-    }
+    "ecmaVersion": 6
   },
+  "plugins": ["prettier"],
   "env": {
     "es6": true,
-    "browser": false,
     "jasmine": true,
     "node": true,
-    "commonjs": false,
     "jest": true
   },
-  "plugins": ["prettier"]
+  "globals": {
+    "page": true,
+    "browser": true,
+    "context": true,
+    "jestPuppeteer": true
+  }
 }

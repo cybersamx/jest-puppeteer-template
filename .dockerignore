@@ -3,5 +3,7 @@
 .git
 .idea
 Dockerfile
+docker-compose.yaml
+LICENSE
 node_modules
 README.md
