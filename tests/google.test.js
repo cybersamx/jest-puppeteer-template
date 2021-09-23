@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-redeclare
 /* global beforeAll, describe, expect, it, page */
 
-const timeout = 30 * 1000; // In milliseconds
+const timeout = 10 * 1000; // In milliseconds
 
 describe('Google', () => {
   beforeAll(async () => {
