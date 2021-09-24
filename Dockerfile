@@ -1,47 +1,13 @@
-# CREDIT: https://github.com/Zenika/alpine-chrome
-# Don't want to use edge package, created this Dockerfile that's based on
-# zenika/alpine-chrome
-FROM alpine:3.14.2
+# Pin the chromium version to 89.
+# For newer versions and more info on the base image, see https://github.com/Zenika/alpine-chrome.
+FROM zenika/alpine-chrome:89-with-puppeteer
 
-RUN apk update && apk upgrade
-
-# Install Chromium version >=77 for it to run well with Alpine
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
-    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-    && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && echo "http://dl-cdn.alpinelinux.org/alpine/v3.12/main" >> /etc/apk/repositories \
-    && apk upgrade -U -a \
-    && apk add \
-    libstdc++ \
-    chromium \
-    harfbuzz \
-    nss \
-    freetype \
-    ttf-freefont \
-    font-noto-emoji \
-    wqy-zenhei \
-    nodejs \
-    nodejs-npm \
-    tini
-
-# Don't need Puppeteer to install Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
-    USER=puppeteer
-
-# Add a user to run Chromium
-RUN mkdir -p /home/${USER}  && \
-    adduser -D ${USER} && \
-    chown -R ${USER}:${USER} /home/${USER}
-USER ${USER}
-WORKDIR /home/${USER}
-
-# Seaparately copy package.json over for caching
+# Copy package.json separately so that Docker can cache this step
 COPY package*.json ./
 RUN npm install --no-optional --production && npm cache clean --force
 
 # Copy the test suite over
-COPY --chown=${USER} . ./
+COPY . ./
 
 # Run the test
 ENTRYPOINT ["/sbin/tini", "--"]
